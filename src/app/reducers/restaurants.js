@@ -5,6 +5,7 @@ export const RESTAURANTS_REQUEST_END = 'restaurants/RESTAURANTS_REQUEST_END';
 export const RESTAURANTS_REQUEST_SUCCESS = 'restaurants/RESTAURANTS_REQUEST_SUCCESS';
 export const RESTAURANTS_DETAIL_REQUEST_SUCCESS = 'restaurants/RESTAURANTS_DETAIL_REQUEST_SUCCESS';
 export const RESTAURANTS_EDIT_REQUEST_SUCCESS = 'restaurants/RESTAURANTS_EDIT_REQUEST_SUCCESS';
+export const RESTAURANTS_CREATE_REQUEST_SUCCESS = 'restaurants/RESTAURANTS_CREATE_REQUEST_SUCCESS';
 export const RESTAURANTS_REQUEST_ERROR = 'restaurants/RESTAURANTS_REQUEST_ERROR';
 
 export const RESTAURANT_SELECTED_SET = 'restaurants/RESTAURANT_SELECTED_SET';
@@ -49,6 +50,13 @@ export default (state = initialState, action) => {
       };
 
     case RESTAURANTS_EDIT_REQUEST_SUCCESS:
+
+      return {
+        ...state,
+        editedRestaurant: action.payload
+      };
+
+    case RESTAURANTS_CREATE_REQUEST_SUCCESS:
 
       return {
         ...state,

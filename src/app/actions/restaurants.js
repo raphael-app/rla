@@ -1,6 +1,7 @@
 import axios from 'axios'
 import localStorage from 'localforage'
 import {push} from 'react-router-redux';
+import slugify from 'slugify';
 
 import { refreshToken } from './auth'
 
@@ -9,6 +10,7 @@ export const RESTAURANTS_REQUEST_END = 'restaurants/RESTAURANTS_REQUEST_END';
 export const RESTAURANTS_REQUEST_SUCCESS = 'restaurants/RESTAURANTS_REQUEST_SUCCESS';
 export const RESTAURANTS_DETAIL_REQUEST_SUCCESS = 'restaurants/RESTAURANTS_DETAIL_REQUEST_SUCCESS';
 export const RESTAURANTS_EDIT_REQUEST_SUCCESS = 'restaurants/RESTAURANTS_EDIT_REQUEST_SUCCESS';
+export const RESTAURANTS_CREATE_REQUEST_SUCCESS = 'restaurants/RESTAURANTS_CREATE_REQUEST_SUCCESS';
 export const RESTAURANTS_REQUEST_ERROR = 'restaurants/RESTAURANTS_REQUEST_ERROR';
 
 export const PRODUCT_SELECTED_SET = 'restaurants/PRODUCT_SELECTED_SET';
@@ -44,6 +46,13 @@ export const RestaurantsDetailReqSuccess = (payload) => {
 export const RestaurantsEditReqSuccess = (payload) => {
   return {
     type: RESTAURANTS_EDIT_REQUEST_SUCCESS,
+    payload
+  }
+};
+
+export const RestaurantsCreateReqSuccess = (payload) => {
+  return {
+    type: RESTAURANTS_CREATE_REQUEST_SUCCESS,
     payload
   }
 };
@@ -126,6 +135,65 @@ export const editRestaurant = (id, slug, title, description, body, user) => {
         let restauranLink = '/restaurants/detail/' + id;
         dispatch(RestaurantsReqEnd());
         dispatch(RestaurantsEditReqSuccess(response.data));
+        dispatch(push(restauranLink));
+      })
+      .catch(function (error) {
+        dispatch(RestaurantsReqEnd());
+        let errorMsg = [];
+        let {data} = error.response
+        console.log(data);
+        if (data) {
+          if(data.detail) {
+            errorMsg.push(data.detail)
+          }
+          if(data.title) {
+            errorMsg.push(data.title)
+          }
+          if(data.slug) {
+            errorMsg.push(data.slug)
+          }
+          if(data.description) {
+            errorMsg.push(data.description)
+          }
+          if(data.body) {
+            errorMsg.push(data.body)
+          }
+          if(data.owner_id) {
+            errorMsg.push(data.owner_id)
+          }
+        }
+        dispatch(RestaurantsReqError(errorMsg));
+      });
+
+  }
+};
+
+export const createRestaurant = (title, description, body, user) => {
+  return dispatch => {
+    
+    dispatch(RestaurantsReqStart());
+
+     var authOptions = {
+      method: 'POST',
+      url: 'http://localhost:8000/restaurants/',
+      data: {
+        'owner_id': user.user.id,
+        'slug': slugify(title),
+        'title': title,
+        'description': description,
+        'body': body
+      },
+      headers: {
+          'Authorization': 'JWT ' + user['token'],
+      },
+    };
+    console.log(authOptions);
+
+    axios(authOptions)
+      .then(function (response) {
+        let restauranLink = '/restaurants/';
+        dispatch(RestaurantsReqEnd());
+        dispatch(RestaurantsCreateReqSuccess(response.data));
         dispatch(push(restauranLink));
       })
       .catch(function (error) {

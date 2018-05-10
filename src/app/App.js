@@ -24,6 +24,7 @@ import Register from './screens/Account/Register'
 import Restaurants from './screens/Restaurants'
 import RestaurantsDetail from './screens/Restaurants/RestaurantsDetail'
 import RestaurantsEdit from './screens/Restaurants/RestaurantsEdit'
+import RestaurantsCreate from './screens/Restaurants/RestaurantsCreate'
 
 // Actions
 import {initApp} from './actions/init';
@@ -69,6 +70,10 @@ class App extends Component {
                   <NavItem>
                     <NavLink href="/restaurants">Restaurants</NavLink>
                   </NavItem>
+
+                  <NavItem>
+                    <NavLink href="/restaurants/create">Add Restaurant</NavLink>
+                  </NavItem>
                   
                   
                 </Nav>
@@ -81,6 +86,7 @@ class App extends Component {
           <Route exact path="/restaurants" component={Restaurants} />
           <Route exact path="/restaurants/detail/:restaurantId" component={RestaurantsDetail} />
           <Route exact path="/restaurants/edit/:restaurantId" component={RestaurantsEdit} />
+          <Route exact path="/restaurants/create/" component={RestaurantsCreate} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
         </main>

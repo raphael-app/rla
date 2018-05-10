@@ -99,6 +99,7 @@ export const login = (username, password) => {
           errorMsj = error.response.data.message;
         }
         dispatch(LoginError(errorMsj));
+        alert("Please try again");
       });
 
   }
