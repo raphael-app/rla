@@ -17,5 +17,5 @@ You can easily fetch restaurants lists without logging/registering. But to be ab
 
 ##### Roadmap 
 
--- Improving error messages
--- Adding refresh_token method
+- Improving error messages
+- Adding refresh_token method
