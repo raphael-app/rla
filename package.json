@@ -1,0 +1,30 @@
+{
+  "name": "rla",
+  "version": "0.1.0",
+  "private": true,
+  "proxy": "http://localhost:8000",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "bootstrap": "4.0.0-beta",
+    "detect-port": "*",
+    "detect-port-alt": "^1.1.6",
+    "localforage": "^1.7.1",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "react-redux": "*",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.3.0-rc.3",
+    "react-router-redux": "^5.0.0-alpha.9",
+    "react-scripts": "1.1.4",
+    "reactstrap": "^6.0.1",
+    "redux": "^4.0.0",
+    "redux-devtools-extension": "*",
+    "redux-thunk": "*"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
